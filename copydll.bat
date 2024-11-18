@@ -1,0 +1,1 @@
+cp lib/GLFW/lib/glfw3.dll bin/Debug
