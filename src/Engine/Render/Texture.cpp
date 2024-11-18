@@ -15,7 +15,7 @@ namespace Engine {
 namespace Render {
     Texture::Texture(const std::string& path) {
         stbi_set_flip_vertically_on_load(true);
-        unsigned char* data = stbi_load(path.c_str(), &m_width, &m_height, &m_channels, 0);
+        unsigned char* data = stbi_load(path.c_str(), &m_width, &m_height, &m_channels, STBI_rgb);
 
         if (!data) {
             std::cout << "Failed to load texture " << path << std::endl;
@@ -32,7 +32,8 @@ namespace Render {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        //glGenerateMipmap(GL_TEXTURE_2D);
+
+        glBindTexture(GL_TEXTURE_2D, 0);
 
         stbi_image_free(data);
     }
@@ -43,6 +44,13 @@ namespace Render {
 
     void Texture::Bind() {
         glBindTexture(GL_TEXTURE_2D, m_textureID);
+        // print the texture from gl
+        std::cout << "Texture ID: " << m_textureID << std::endl;
+    }
+
+    void Texture::Render() {
+        this->Bind();
+        glDrawArrays(GL_TRIANGLES, 0, 6);
     }
 
     void Texture::Unbind() {

@@ -9,6 +9,7 @@ namespace Render {
         ~Texture();
 
         void Bind();
+        void Render();
         void Unbind();
     private:
         unsigned int m_textureID;
