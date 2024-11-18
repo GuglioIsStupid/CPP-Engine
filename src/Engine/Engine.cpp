@@ -27,8 +27,10 @@ namespace Engine {
 
         glfwMakeContextCurrent(m_glfwWindow);
 
-        glEnable(GL_BLEND | GL_DEPTH_TEST | GL_TEXTURE_2D);
-        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        glViewport( 0, 0, width, height );
+
+        glEnable( GL_BLEND );
+        glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
     }
 
     Engine::~Engine() {
@@ -83,6 +85,9 @@ namespace Engine {
     void Engine::Render() {
         std::cout << "Rendering" << std::endl;
         glfwPollEvents();
+
+        glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
+        glClear( GL_COLOR_BUFFER_BIT );
         
         // gl triangle
         glBegin(GL_TRIANGLES);
@@ -92,10 +97,14 @@ namespace Engine {
             glVertex2f(0.5f, -0.5f);
             glColor3f(0.0f, 0.0f, 1.0f);
             glVertex2f(0.0f, 0.5f);
+
         glEnd();
 
+        glColor3f(1.0f, 1.0f, 1.0f);
         Render::Texture texture("res/textures/homie.png");
         texture.Render();
+
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(m_glfwWindow);
     }
