@@ -4,7 +4,9 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/lib/GLFW/include"
+                "${workspaceFolder}/lib/GLFW/include",
+                "${workspaceFolder}/lib/SDL2/include",
+                "${workspaceFolder}/lib/GLEW/include"
             ],
             "defines": [
                 "_DEBUG",

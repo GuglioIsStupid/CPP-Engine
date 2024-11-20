@@ -2,14 +2,16 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include <GLFW/glfw3.h>
+#include <SDL2/SDL.h>
 #ifdef _WIN32
     #include <windows.h>
+    #include <windef.h>
+    #include <GL/glew.h>
+#else
+    #include <GL/glew.h>
 #endif
 
 #include <gl/GL.h>
-
-#include "Render/Texture.hpp"
 
 // setup Engine namespace
 namespace Engine {
@@ -18,6 +20,8 @@ namespace Engine {
     public:
         Engine(int width, int height, const std::string& title);
         ~Engine();
+
+        bool GL_Init();
 
         bool IsRunning();
         int GetFPSLimit();
@@ -39,6 +43,35 @@ namespace Engine {
         int m_windowWidth;
         int m_windowHeight;
 
-        GLFWwindow* m_glfwWindow;
+        bool m_isRunning = true;
+
+        SDL_Window* m_sdlWindow;
+        SDL_Event m_event;
+        SDL_GLContext m_glContext;
+
+        GLuint g_uiVAO;
+        GLuint g_uiVBO;
+        GLuint g_uiMainProgram;
+
+        const GLchar* p_cVertexShaderSource = R"(
+#version 330 core
+
+layout (location = 0) in vec2 aPos;
+
+void main() {
+    gl_Position = vec4(aPos, 0.0, 1.0);
+}
+        )";
+        const GLchar* p_cFragmentShaderSource = R"(
+#version 430 core
+out vec3 v3FragOutput;
+void main()
+{
+    v3FragOutput = vec3(1.0f, 1.0f, 1.0f);
+}
+        )";
+
+        GLuint g_uiVertexShader;
+        GLuint g_uiFragmentShader;
     };
 } // Engine

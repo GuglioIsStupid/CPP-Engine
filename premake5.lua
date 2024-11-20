@@ -1,14 +1,23 @@
 workspace "Engine"
    configurations { "Debug", "Release" }
 
-function includeGLFW()
-	includedirs { "lib/GLFW/include", "lib/glad", "lib/KHR", "lib/stb" }
+function includeLibraries()
+	includedirs { 
+        "lib/GLFW/include",
+        "lib/GLEW/include",
+        "lib/SDL2/include",
+    }
 end
 
-function linkGLFW()
-	libdirs "lib/GLFW/lib"
+function linkLibraries()
+	libdirs { 
+        "lib/GLFW/lib",
+        "lib/GLEW/lib",
+        "lib/SDL2/lib"
+    }
     -- mingw32 libs
-    links { "glfw3dll", "opengl32", "gdi32" }
+    ---lglu32 -lopengl32 -lGL -lGLU -lglfw -lglew
+    links { "glfw3dll", "opengl32", "gdi32", "glew32", "SDL2", "SDL2main" }
 end
 
 project "Engine"
@@ -21,15 +30,17 @@ project "Engine"
 
     -- Copy over dll files
 
+    defines { "_WIN32"}
+
     filter "configurations:Debug"
         defines { "DEBUG" }
         symbols "On"
 
         filter {}
-        includeGLFW()
+        includeLibraries()
 
         filter {}
-        linkGLFW()
+        linkLibraries()
     filter "configurations:Release"
         defines { "NDEBUG" }
         optimize "On"
