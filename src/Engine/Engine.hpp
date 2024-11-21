@@ -34,6 +34,11 @@ namespace Engine {
         void Update(double deltaTime);
         void Render();
         void Exit();
+
+        static Engine* m_instance;
+
+        static Engine* GetInstance(int width, int height, const std::string& title);
+        static Engine* GetInstance();
     private:
         int m_fpsLimit = 60;
         int m_lastFrameTime;

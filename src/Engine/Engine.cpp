@@ -4,6 +4,21 @@
 #include <chrono>
 
 namespace Engine {
+    // static variables
+    Engine* Engine::m_instance = nullptr;
+
+    // static functions
+    Engine* Engine::GetInstance(int width, int height, const std::string& title) {
+        if (m_instance == nullptr) {
+            m_instance = new Engine(width, height, title);
+        }
+
+        return m_instance;
+    }
+    Engine* Engine::GetInstance() {
+        return m_instance;
+    }
+
     Engine::Engine(int width, int height, const std::string& title) {
         m_title = title;
         m_windowWidth = width;

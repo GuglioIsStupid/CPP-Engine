@@ -7,15 +7,17 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 int main(int argc, char **argv)
 #endif
 {
-    Engine::Engine engine(1280, 720, "Engine");
+   /*  Engine::Engine engine(1280, 720, "Engine"); */
+    // call GetInstance to get the instance of the engine
+    Engine::Engine* engine = Engine::Engine::GetInstance(1280, 720, "Engine");
 
-    engine.Run();
+    engine->Run();
 
-    while (engine.IsRunning()) {
-        engine.Loop();
+    while (engine->IsRunning()) {
+        engine->Loop();
     }
 
-    engine.Exit();
+    engine->Exit();
 
     return 0;
 }
