@@ -7,7 +7,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 int main(int argc, char **argv)
 #endif
 {
-   /*  Engine::Engine engine(1280, 720, "Engine"); */
     // call GetInstance to get the instance of the engine
     Engine::Engine* engine = Engine::Engine::GetInstance(1280, 720, "Engine");
 
