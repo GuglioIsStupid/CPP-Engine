@@ -69,8 +69,10 @@ void main() {
         const GLchar* p_cFragmentShaderSource = R"(
 #version 330 core
 out vec3 FragColor;
+uniform float uWindowWidth;
+uniform float uWindowHeight;
 void main() {
-    FragColor = vec3(1.0, 1.0, 1.0);
+    FragColor = vec3(gl_FragCoord.x / uWindowWidth, gl_FragCoord.y / uWindowHeight, 1.0);
 }
 )";
 

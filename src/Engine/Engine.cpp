@@ -149,6 +149,10 @@ namespace Engine {
 
         glUseProgram(g_uiMainProgram);
 
+        // pass arguments to fragment shader
+        glUniform1f(glGetUniformLocation(g_uiMainProgram, "uWindowWidth"), static_cast<float>(m_windowWidth));
+        glUniform1f(glGetUniformLocation(g_uiMainProgram, "uWindowHeight"), static_cast<float>(m_windowHeight));
+
         std::cout << "OpenGL initialized" << std::endl;
 
         return true;
